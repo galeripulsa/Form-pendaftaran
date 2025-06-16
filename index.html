@@ -3,26 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mandiri Cell - Pendaftaran</title>
+  <title>Mandiri Cell - Form Pendaftaran</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; }
-    header { background: #007bff; color: white; padding: 20px 0; text-align: center; }
-    .container { max-width: 600px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    input, button { width: 100%; padding: 12px; margin: 8px 0; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
-    button { background: #28a745; color: white; border: none; cursor: pointer; }
-    button:hover { background: #218838; }
-    footer { text-align: center; padding: 20px; background: #007bff; color: white; margin-top: 40px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+    }
+    header {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #007bff;
+      color: white;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
 
 <header>
   <h1>Mandiri Cell</h1>
-  <p>Solusi Bisnis Pulsa & PPOB Terlengkap</p>
+  <p>Form Pendaftaran Agen</p>
 </header>
 
 <div class="container">
-  <h2>Form Pendaftaran</h2>
+  <h2>Isi Data Anda</h2>
   <form id="formPendaftaran">
     <input type="text" id="namaOutlet" placeholder="Nama Outlet" required />
     <input type="text" id="namaPemilik" placeholder="Nama Pemilik" required />
@@ -38,13 +74,29 @@
 </footer>
 
 <script>
-  function hanyaHurufAngkaSpasi(str) {
-    return /^[a-zA-Z0-9\s]+$/.test(str);
+  function alertInvalid(id, message) {
+    const input = document.getElementById(id);
+    input.addEventListener('input', () => {
+      const val = input.value;
+      if (id === "pinTransaksi" || id === "referral") {
+        if (val && !/^[a-zA-Z0-9]+$/.test(val)) {
+          alert(message);
+          input.value = val.replace(/[^a-zA-Z0-9]/g, '');
+        }
+      } else {
+        if (val && !/^[a-zA-Z0-9\s]+$/.test(val)) {
+          alert(message);
+          input.value = val.replace(/[^a-zA-Z0-9\s]/g, '');
+        }
+      }
+    });
   }
 
-  function hanyaHurufAngkaNoSpasi(str) {
-    return /^[a-zA-Z0-9]+$/.test(str);
-  }
+  alertInvalid("namaOutlet", "Nama Outlet hanya boleh berisi huruf dan angka.");
+  alertInvalid("namaPemilik", "Nama Pemilik hanya boleh berisi huruf dan angka.");
+  alertInvalid("alamatLengkap", "Alamat Lengkap hanya boleh berisi huruf dan angka.");
+  alertInvalid("pinTransaksi", "PIN hanya boleh huruf dan angka, tanpa spasi.");
+  alertInvalid("referral", "Kode Referral hanya boleh huruf dan angka, tanpa spasi.");
 
   document.getElementById("formPendaftaran").addEventListener("submit", function(e) {
     e.preventDefault();
@@ -55,33 +107,8 @@
     const pinTransaksi = document.getElementById("pinTransaksi").value.trim();
     const referral = document.getElementById("referral").value.trim();
 
-    if (!hanyaHurufAngkaSpasi(namaOutlet)) {
-      alert("Nama Outlet hanya boleh berisi huruf dan angka.");
-      return;
-    }
-
-    if (!hanyaHurufAngkaSpasi(namaPemilik)) {
-      alert("Nama Pemilik hanya boleh berisi huruf dan angka.");
-      return;
-    }
-
-    if (!hanyaHurufAngkaSpasi(alamatLengkap)) {
-      alert("Alamat Lengkap hanya boleh berisi huruf dan angka.");
-      return;
-    }
-
-    if (!hanyaHurufAngkaNoSpasi(pinTransaksi)) {
-      alert("PIN hanya boleh huruf dan angka, tanpa spasi.");
-      return;
-    }
-
     if (pinTransaksi.length < 6) {
       alert("PIN minimal harus 6 karakter.");
-      return;
-    }
-
-    if (referral && !hanyaHurufAngkaNoSpasi(referral)) {
-      alert("Kode Referral hanya boleh huruf dan angka, tanpa spasi.");
       return;
     }
 
