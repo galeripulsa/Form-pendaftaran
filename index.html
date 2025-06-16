@@ -18,32 +18,20 @@
       color: white;
       text-align: center;
       padding: 20px 0;
-      animation: fadeDown 1s ease-in-out;
-    }
-
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .container {
       width: 90%;
-      max-width: 400px;
+      max-width: 320px; /* <= Ukuran kolom diperpendek */
       margin: 30px auto;
       background: white;
-      padding: 30px 20px;
+      padding: 25px 20px;
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      animation: fadeUp 1s ease-in-out;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     label {
@@ -79,7 +67,7 @@
     input {
       width: 100%;
       padding: 10px 12px 10px 40px;
-      font-size: 16px;
+      font-size: 15px;
       border: 2px solid #ccc;
       border-radius: 8px;
       transition: all 0.3s ease;
@@ -93,8 +81,8 @@
 
     button {
       width: 100%;
-      padding: 14px;
-      font-size: 18px;
+      padding: 12px;
+      font-size: 16px;
       background: #28a745;
       color: white;
       border: none;
@@ -116,7 +104,6 @@
       margin-top: 40px;
     }
 
-    /* Modal Pop-up */
     .modal {
       position: fixed;
       z-index: 9999;
@@ -134,7 +121,7 @@
       padding: 30px;
       border-radius: 14px;
       font-size: 20px;
-      max-width: 85%;
+      max-width: 90%;
       box-shadow: 0 0 30px rgba(0,0,0,0.2);
       text-align: center;
     }
@@ -203,7 +190,6 @@
   </form>
 </div>
 
-<!-- Pop-up -->
 <div class="modal" id="popupModal">
   <div class="modal-content" id="popupText">
     <span></span>
