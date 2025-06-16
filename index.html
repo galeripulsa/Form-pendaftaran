@@ -3,74 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Form Pendaftaran Mandiri Cell</title>
+  <title>Mandiri Cell - Pendaftaran</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
-    form { background: white; padding: 20px; border-radius: 10px; max-width: 500px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
-    button { background-color: #4CAF50; color: white; border: none; cursor: pointer; }
-    button:hover { background-color: #45a049; }
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; }
+    header { background: #007bff; color: white; padding: 20px 0; text-align: center; }
+    .container { max-width: 600px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, button { width: 100%; padding: 12px; margin: 8px 0; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
+    button { background: #28a745; color: white; border: none; cursor: pointer; }
+    button:hover { background: #218838; }
+    footer { text-align: center; padding: 20px; background: #007bff; color: white; margin-top: 40px; }
   </style>
 </head>
 <body>
 
+<header>
+  <h1>Mandiri Cell</h1>
+  <p>Solusi Bisnis Pulsa & PPOB Terlengkap</p>
+</header>
+
+<div class="container">
+  <h2>Form Pendaftaran</h2>
   <form id="formPendaftaran">
-    <h2>Form Pendaftaran Mandiri Cell</h2>
     <input type="text" id="namaOutlet" placeholder="Nama Outlet" required />
     <input type="text" id="namaPemilik" placeholder="Nama Pemilik" required />
     <input type="text" id="alamatLengkap" placeholder="Alamat Lengkap" required />
     <input type="text" id="pinTransaksi" placeholder="Buat PIN Transaksi (min 6 karakter)" required />
     <input type="text" id="referral" placeholder="Kode Referral (opsional)" />
-    <button type="submit">Daftar</button>
+    <button type="submit">Daftar Sekarang</button>
   </form>
+</div>
 
-  <script>
-    function isAlphaNumeric(str) {
-      return /^[a-zA-Z0-9]+$/.test(str);
+<footer>
+  &copy; 2025 Mandiri Cell - All Rights Reserved
+</footer>
+
+<script>
+  function hanyaHurufAngkaSpasi(str) {
+    return /^[a-zA-Z0-9\s]+$/.test(str);
+  }
+
+  function hanyaHurufAngkaNoSpasi(str) {
+    return /^[a-zA-Z0-9]+$/.test(str);
+  }
+
+  document.getElementById("formPendaftaran").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const namaOutlet = document.getElementById("namaOutlet").value.trim();
+    const namaPemilik = document.getElementById("namaPemilik").value.trim();
+    const alamatLengkap = document.getElementById("alamatLengkap").value.trim();
+    const pinTransaksi = document.getElementById("pinTransaksi").value.trim();
+    const referral = document.getElementById("referral").value.trim();
+
+    if (!hanyaHurufAngkaSpasi(namaOutlet)) {
+      alert("Nama Outlet hanya boleh berisi huruf dan angka.");
+      return;
     }
 
-    function hasNoSpace(str) {
-      return /^\S+$/.test(str);
+    if (!hanyaHurufAngkaSpasi(namaPemilik)) {
+      alert("Nama Pemilik hanya boleh berisi huruf dan angka.");
+      return;
     }
 
-    document.getElementById("formPendaftaran").addEventListener("submit", function(e) {
-      e.preventDefault();
+    if (!hanyaHurufAngkaSpasi(alamatLengkap)) {
+      alert("Alamat Lengkap hanya boleh berisi huruf dan angka.");
+      return;
+    }
 
-      const namaOutlet = document.getElementById("namaOutlet").value.trim();
-      const namaPemilik = document.getElementById("namaPemilik").value.trim();
-      const alamatLengkap = document.getElementById("alamatLengkap").value.trim();
-      const pinTransaksi = document.getElementById("pinTransaksi").value.trim();
-      const referral = document.getElementById("referral").value.trim();
+    if (!hanyaHurufAngkaNoSpasi(pinTransaksi)) {
+      alert("PIN hanya boleh huruf dan angka, tanpa spasi.");
+      return;
+    }
 
-      const fields = [namaOutlet, namaPemilik, alamatLengkap];
-      for (let field of fields) {
-        if (!/^[a-zA-Z0-9\s]+$/.test(field)) {
-          alert("Semua kolom hanya boleh berisi huruf dan angka (tanpa karakter khusus).");
-          return;
-        }
-      }
+    if (pinTransaksi.length < 6) {
+      alert("PIN minimal harus 6 karakter.");
+      return;
+    }
 
-      if (!isAlphaNumeric(pinTransaksi) || !hasNoSpace(pinTransaksi)) {
-        alert("PIN hanya boleh huruf dan angka tanpa spasi.");
-        return;
-      }
+    if (referral && !hanyaHurufAngkaNoSpasi(referral)) {
+      alert("Kode Referral hanya boleh huruf dan angka, tanpa spasi.");
+      return;
+    }
 
-      if (pinTransaksi.length < 6) {
-        alert("PIN minimal harus terdiri dari 6 karakter.");
-        return;
-      }
-
-      if (referral && (!isAlphaNumeric(referral) || !hasNoSpace(referral))) {
-        alert("Referral hanya boleh huruf dan angka tanpa spasi.");
-        return;
-      }
-
-      const pesan = `DAFTAR#${namaOutlet}#${namaPemilik}#${alamatLengkap}#${pinTransaksi}#${referral}`;
-      const noWa = "6282188890720";
-      const waLink = `https://wa.me/${noWa}?text=${encodeURIComponent(pesan)}`;
-      window.open(waLink, "_blank");
-    });
-  </script>
+    const pesan = `DAFTAR#${namaOutlet}#${namaPemilik}#${alamatLengkap}#${pinTransaksi}#${referral}`;
+    const noWa = "6282188890720";
+    const waLink = `https://wa.me/${noWa}?text=${encodeURIComponent(pesan)}`;
+    window.open(waLink, "_blank");
+  });
+</script>
 
 </body>
 </html>
