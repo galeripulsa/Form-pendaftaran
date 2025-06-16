@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mandiri Cell - Form Pendaftaran</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
       margin: 0;
       padding: 0;
     }
@@ -30,8 +32,8 @@
       margin: 30px auto;
       background: white;
       padding: 30px 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       animation: fadeUp 1s ease-in-out;
     }
 
@@ -40,25 +42,41 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .form-group {
+      margin-bottom: 20px;
+    }
+
     label {
-      font-weight: bold;
-      margin-top: 10px;
       display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
       color: #333;
+    }
+
+    .input-icon {
+      position: relative;
+    }
+
+    .input-icon i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #888;
     }
 
     input {
       width: 100%;
-      padding: 10px;
-      margin: 5px 0 15px;
+      padding: 10px 12px 10px 40px;
       font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      transition: border-color 0.3s;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      transition: all 0.3s ease;
     }
 
     input:focus {
       border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
       outline: none;
     }
 
@@ -69,9 +87,9 @@
       background: #28a745;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s ease;
     }
 
     button:disabled {
@@ -87,11 +105,11 @@
       margin-top: 40px;
     }
 
-    /* Custom Modal Pop-up */
+    /* Modal Pop-up */
     .modal {
       position: fixed;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.6);
       top: 0; left: 0;
       width: 100%;
       height: 100%;
@@ -103,16 +121,21 @@
     .modal-content {
       background: white;
       padding: 30px;
-      border-radius: 12px;
-      text-align: center;
+      border-radius: 14px;
       font-size: 20px;
-      max-width: 80%;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      max-width: 85%;
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      text-align: center;
     }
 
     .modal-content button {
       margin-top: 20px;
+      padding: 10px 20px;
       background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -125,28 +148,54 @@
 
 <div class="container">
   <form id="formPendaftaran">
-    <label for="namaOutlet">Nama Outlet</label>
-    <input type="text" id="namaOutlet" required />
+    <div class="form-group">
+      <label for="namaOutlet">Nama Outlet</label>
+      <div class="input-icon">
+        <i class="fas fa-store"></i>
+        <input type="text" id="namaOutlet" required />
+      </div>
+    </div>
 
-    <label for="namaPemilik">Nama Pemilik</label>
-    <input type="text" id="namaPemilik" required />
+    <div class="form-group">
+      <label for="namaPemilik">Nama Pemilik</label>
+      <div class="input-icon">
+        <i class="fas fa-user"></i>
+        <input type="text" id="namaPemilik" required />
+      </div>
+    </div>
 
-    <label for="alamatLengkap">Alamat Lengkap</label>
-    <input type="text" id="alamatLengkap" required />
+    <div class="form-group">
+      <label for="alamatLengkap">Alamat Lengkap</label>
+      <div class="input-icon">
+        <i class="fas fa-map-marker-alt"></i>
+        <input type="text" id="alamatLengkap" required />
+      </div>
+    </div>
 
-    <label for="pinTransaksi">PIN Transaksi (min 6 karakter)</label>
-    <input type="text" id="pinTransaksi" required />
+    <div class="form-group">
+      <label for="pinTransaksi">PIN Transaksi (min 6 karakter)</label>
+      <div class="input-icon">
+        <i class="fas fa-key"></i>
+        <input type="text" id="pinTransaksi" required />
+      </div>
+    </div>
 
-    <label for="referral">Kode Referral (opsional)</label>
-    <input type="text" id="referral" />
+    <div class="form-group">
+      <label for="referral">Kode Referral (opsional)</label>
+      <div class="input-icon">
+        <i class="fas fa-gift"></i>
+        <input type="text" id="referral" />
+      </div>
+    </div>
 
     <button type="submit" id="submitBtn" disabled>Daftar Sekarang</button>
   </form>
 </div>
 
+<!-- Pop-up -->
 <div class="modal" id="popupModal">
   <div class="modal-content" id="popupText">
-    <!-- Text muncul di sini -->
+    <span></span>
     <button onclick="closeModal()">Tutup</button>
   </div>
 </div>
@@ -156,14 +205,13 @@
 </footer>
 
 <script>
-  const form = document.getElementById("formPendaftaran");
   const fields = ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi"];
   const submitBtn = document.getElementById("submitBtn");
 
   const showModal = (msg) => {
     const modal = document.getElementById("popupModal");
-    const text = document.getElementById("popupText");
-    text.firstChild.textContent = msg;
+    const text = document.querySelector("#popupText span");
+    text.textContent = msg;
     modal.style.display = "flex";
   };
 
@@ -196,13 +244,16 @@
   }
 
   function validateForm() {
-    const isValid =
-      /^[a-zA-Z0-9\s]+$/.test(namaOutlet.value) &&
-      /^[a-zA-Z0-9\s]+$/.test(namaPemilik.value) &&
-      /^[a-zA-Z0-9\s]+$/.test(alamatLengkap.value) &&
-      /^[a-zA-Z0-9]{6,}$/.test(pinTransaksi.value);
-
-    submitBtn.disabled = !isValid;
+    const namaOutlet = document.getElementById("namaOutlet").value.trim();
+    const namaPemilik = document.getElementById("namaPemilik").value.trim();
+    const alamatLengkap = document.getElementById("alamatLengkap").value.trim();
+    const pinTransaksi = document.getElementById("pinTransaksi").value.trim();
+    const valid =
+      /^[a-zA-Z0-9\s]+$/.test(namaOutlet) &&
+      /^[a-zA-Z0-9\s]+$/.test(namaPemilik) &&
+      /^[a-zA-Z0-9\s]+$/.test(alamatLengkap) &&
+      /^[a-zA-Z0-9]{6,}$/.test(pinTransaksi);
+    submitBtn.disabled = !valid;
   }
 
   validateInput("namaOutlet", /^[a-zA-Z0-9\s]+$/, "Nama Outlet hanya boleh huruf dan angka.");
@@ -211,7 +262,7 @@
   validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka, tanpa spasi.");
   validateNoSpace("referral", "Referral hanya boleh huruf dan angka, tanpa spasi.");
 
-  form.addEventListener("submit", (e) => {
+  document.getElementById("formPendaftaran").addEventListener("submit", (e) => {
     e.preventDefault();
     const namaOutlet = document.getElementById("namaOutlet").value.trim();
     const namaPemilik = document.getElementById("namaPemilik").value.trim();
