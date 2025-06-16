@@ -8,7 +8,8 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f0f4f8;
+      background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+      background-attachment: fixed;
       margin: 0;
       padding: 0;
     }
@@ -22,12 +23,13 @@
 
     .container {
       width: 90%;
-      max-width: 320px; /* Batasi lebar form */
+      max-width: 380px;
       margin: 30px auto;
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
       padding: 25px 20px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      backdrop-filter: blur(5px);
     }
 
     .form-group {
@@ -43,7 +45,6 @@
 
     .input-icon {
       position: relative;
-      max-width: 100%;
     }
 
     .input-icon i {
@@ -66,12 +67,12 @@
 
     input {
       width: 100%;
-      max-width: 100%;
       padding: 10px 12px 10px 40px;
       font-size: 15px;
       border: 2px solid #ccc;
-      border-radius: 8px;
+      border-radius: 10px;
       transition: all 0.3s ease;
+      background-color: white;
     }
 
     input:focus {
