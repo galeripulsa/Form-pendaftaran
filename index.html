@@ -9,44 +9,110 @@
       font-family: Arial, sans-serif;
       background: #f4f4f4;
       margin: 0;
+      padding: 0;
     }
+
     header {
       background: #007bff;
       color: white;
       text-align: center;
       padding: 20px 0;
+      animation: fadeDown 1s ease-in-out;
     }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .container {
       max-width: 600px;
       margin: 30px auto;
       background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      animation: fadeUp 1s ease-in-out;
     }
-    input, button {
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+      color: #333;
+    }
+
+    input {
       width: 100%;
-      padding: 12px;
-      margin: 8px 0;
+      padding: 10px;
+      margin: 5px 0 15px;
       font-size: 16px;
-      border-radius: 5px;
+      border-radius: 6px;
       border: 1px solid #ccc;
+      transition: border-color 0.3s;
     }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
     button {
-      background-color: #28a745;
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      background: #28a745;
       color: white;
       border: none;
+      border-radius: 8px;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    button:hover {
-      background-color: #218838;
+
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
     }
+
     footer {
       text-align: center;
       padding: 20px;
       background: #007bff;
       color: white;
       margin-top: 40px;
+    }
+
+    /* Custom Modal Pop-up */
+    .modal {
+      position: fixed;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.7);
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 20px;
+      max-width: 80%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .modal-content button {
+      margin-top: 20px;
+      background: #007bff;
     }
   </style>
 </head>
@@ -58,15 +124,31 @@
 </header>
 
 <div class="container">
-  <h2>Isi Data Anda</h2>
   <form id="formPendaftaran">
-    <input type="text" id="namaOutlet" placeholder="Nama Outlet" required />
-    <input type="text" id="namaPemilik" placeholder="Nama Pemilik" required />
-    <input type="text" id="alamatLengkap" placeholder="Alamat Lengkap" required />
-    <input type="text" id="pinTransaksi" placeholder="Buat PIN Transaksi (min 6 karakter)" required />
-    <input type="text" id="referral" placeholder="Kode Referral (opsional)" />
-    <button type="submit">Daftar Sekarang</button>
+    <label for="namaOutlet">Nama Outlet</label>
+    <input type="text" id="namaOutlet" required />
+
+    <label for="namaPemilik">Nama Pemilik</label>
+    <input type="text" id="namaPemilik" required />
+
+    <label for="alamatLengkap">Alamat Lengkap</label>
+    <input type="text" id="alamatLengkap" required />
+
+    <label for="pinTransaksi">PIN Transaksi (min 6 karakter)</label>
+    <input type="text" id="pinTransaksi" required />
+
+    <label for="referral">Kode Referral (opsional)</label>
+    <input type="text" id="referral" />
+
+    <button type="submit" id="submitBtn" disabled>Daftar Sekarang</button>
   </form>
+</div>
+
+<div class="modal" id="popupModal">
+  <div class="modal-content" id="popupText">
+    <!-- Text muncul di sini -->
+    <button onclick="closeModal()">Tutup</button>
+  </div>
 </div>
 
 <footer>
@@ -74,33 +156,63 @@
 </footer>
 
 <script>
-  function alertInvalid(id, message) {
+  const form = document.getElementById("formPendaftaran");
+  const fields = ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi"];
+  const submitBtn = document.getElementById("submitBtn");
+
+  const showModal = (msg) => {
+    const modal = document.getElementById("popupModal");
+    const text = document.getElementById("popupText");
+    text.firstChild.textContent = msg;
+    modal.style.display = "flex";
+  };
+
+  const closeModal = () => {
+    document.getElementById("popupModal").style.display = "none";
+  };
+
+  function validateInput(id, pattern, message) {
     const input = document.getElementById(id);
-    input.addEventListener('input', () => {
+    input.addEventListener("input", () => {
       const val = input.value;
-      if (id === "pinTransaksi" || id === "referral") {
-        if (val && !/^[a-zA-Z0-9]+$/.test(val)) {
-          alert(message);
-          input.value = val.replace(/[^a-zA-Z0-9]/g, '');
-        }
-      } else {
-        if (val && !/^[a-zA-Z0-9\s]+$/.test(val)) {
-          alert(message);
-          input.value = val.replace(/[^a-zA-Z0-9\s]/g, '');
-        }
+      if (val && !pattern.test(val)) {
+        showModal(message);
+        input.value = val.replace(/[^a-zA-Z0-9\s]/g, '');
       }
+      validateForm();
     });
   }
 
-  alertInvalid("namaOutlet", "Nama Outlet hanya boleh berisi huruf dan angka.");
-  alertInvalid("namaPemilik", "Nama Pemilik hanya boleh berisi huruf dan angka.");
-  alertInvalid("alamatLengkap", "Alamat Lengkap hanya boleh berisi huruf dan angka.");
-  alertInvalid("pinTransaksi", "PIN hanya boleh huruf dan angka, tanpa spasi.");
-  alertInvalid("referral", "Kode Referral hanya boleh huruf dan angka, tanpa spasi.");
+  function validateNoSpace(id, message) {
+    const input = document.getElementById(id);
+    input.addEventListener("input", () => {
+      const val = input.value;
+      if (val && /[^a-zA-Z0-9]/.test(val)) {
+        showModal(message);
+        input.value = val.replace(/[^a-zA-Z0-9]/g, '');
+      }
+      validateForm();
+    });
+  }
 
-  document.getElementById("formPendaftaran").addEventListener("submit", function(e) {
+  function validateForm() {
+    const isValid =
+      /^[a-zA-Z0-9\s]+$/.test(namaOutlet.value) &&
+      /^[a-zA-Z0-9\s]+$/.test(namaPemilik.value) &&
+      /^[a-zA-Z0-9\s]+$/.test(alamatLengkap.value) &&
+      /^[a-zA-Z0-9]{6,}$/.test(pinTransaksi.value);
+
+    submitBtn.disabled = !isValid;
+  }
+
+  validateInput("namaOutlet", /^[a-zA-Z0-9\s]+$/, "Nama Outlet hanya boleh huruf dan angka.");
+  validateInput("namaPemilik", /^[a-zA-Z0-9\s]+$/, "Nama Pemilik hanya boleh huruf dan angka.");
+  validateInput("alamatLengkap", /^[a-zA-Z0-9\s]+$/, "Alamat hanya boleh huruf dan angka.");
+  validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka, tanpa spasi.");
+  validateNoSpace("referral", "Referral hanya boleh huruf dan angka, tanpa spasi.");
+
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
-
     const namaOutlet = document.getElementById("namaOutlet").value.trim();
     const namaPemilik = document.getElementById("namaPemilik").value.trim();
     const alamatLengkap = document.getElementById("alamatLengkap").value.trim();
@@ -108,14 +220,13 @@
     const referral = document.getElementById("referral").value.trim();
 
     if (pinTransaksi.length < 6) {
-      alert("PIN minimal harus 6 karakter.");
+      showModal("PIN minimal 6 karakter.");
       return;
     }
 
     const pesan = `DAFTAR#${namaOutlet}#${namaPemilik}#${alamatLengkap}#${pinTransaksi}#${referral}`;
-    const noWa = "6282188890720";
-    const waLink = `https://wa.me/${noWa}?text=${encodeURIComponent(pesan)}`;
-    window.open(waLink, "_blank");
+    const wa = `https://wa.me/6282188890720?text=${encodeURIComponent(pesan)}`;
+    window.open(wa, "_blank");
   });
 </script>
 
