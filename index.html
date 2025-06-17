@@ -145,7 +145,7 @@
 
 <header>
   <h1>Mandiri Cell</h1>
-  <p><marque>Formulir Pendaftaran Agen Pulsa All Operator</marque></p>
+  <p><marquee>Formulir Pendaftaran Agen Pulsa All Operator</marquee></p>
 </header>
 
 <div class="container">
@@ -209,16 +209,48 @@
   const fields = ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi"];
   const submitBtn = document.getElementById("submitBtn");
 
+  function disableInteraction() {
+    document.querySelectorAll("input, button").forEach((el) => {
+      if (!el.closest("#popupModal")) {
+        el.setAttribute("disabled", "true");
+      }
+    });
+    document.body.style.overflow = "hidden";
+  }
+
+  function enableInteraction() {
+    document.querySelectorAll("input, button").forEach((el) => {
+      el.removeAttribute("disabled");
+    });
+    validateForm();
+    document.body.style.overflow = "auto";
+  }
+
   const showModal = (msg) => {
     const modal = document.getElementById("popupModal");
     const text = document.querySelector("#popupText span");
     text.textContent = msg;
     modal.style.display = "flex";
+    history.pushState({ modalOpen: true }, "");
+    disableInteraction();
   };
 
   const closeModal = () => {
-    document.getElementById("popupModal").style.display = "none";
+    const modal = document.getElementById("popupModal");
+    modal.style.display = "none";
+    enableInteraction();
+    if (history.state?.modalOpen) {
+      history.back();
+    }
   };
+
+  window.addEventListener("popstate", (e) => {
+    const modal = document.getElementById("popupModal");
+    if (modal.style.display === "flex") {
+      showModal("Tolong tutup pop-up ini terlebih dahulu.");
+      history.pushState({ modalOpen: true }, "");
+    }
+  });
 
   function validateInput(id, pattern, message) {
     const input = document.getElementById(id);
