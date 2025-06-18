@@ -1,41 +1,354 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mandiri Cell</title>
+  <title>Mandiri Cell - Form Pendaftaran</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+      background-attachment: fixed;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #f0f8ff, #ffffff);
+      padding: 0;
     }
+
+    @keyframes blinkcolor {
+      25% {color:#00b4d2;}
+      50% {color:red;}
+      75% {color:#00bbcc;}
+      100% {color:white;}
+      1%, 0% { opacity: 10; }
+      10%, 50%{ opacity: 100; }
+      
+    }
+
+    .blinking-icon {
+      animation: blinkcolor 5s infinite alternate;
+     
+     
+    }
+
     header {
-      background-color: #ffd700;
+      background: #FFD200;
+      color: black;
+      text-align: center;
+      padding: 30px 10px 20px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    header p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 400px;
+      margin: 30px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      backdrop-filter: blur(5px);
+    }
+
+    .intro-text {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .intro-text h2 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #222;
+    }
+
+    .intro-text p {
+      font-size: 14px;
+      color: #444;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .input-icon {
+      position: relative;
+    }
+
+    .input-icon i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #aaa;
+      transition: color 0.3s ease;
+    }
+
+    .input-icon.filled i {
+      color: #00b4d2;
+    }
+
+    .input-icon.filled input {
+      border-color: #00b4d2;
+      box-shadow: 0 0 0 2px rgba(90, 167, 70, 0.2);
+    }
+
+    input {
+      width: 88%;
+      padding: 10px 12px 10px 30px;
+      font-size: 15px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background-color: white;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+      outline: none;
+    }
+
+    button {
+      width: 101%;
+      padding: 12px;
+      font-size: 15px;
+      background: #FFD200;
+      color: black;
+      border: 2px solid #b4d2;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:disabled {
+      background: #ccb;
+      cursor: not-allowed;
+      color: white;
+      border: 2px solid #ccc;
+    }
+
+    footer {
+      text-align: center;
       padding: 20px;
+      background: #00b4d2;
+      color: white;
+      margin-top: 40px;
+    }
+
+    .modal {
+      position: fixed;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.6);
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      font-size: 15px;
+      max-width: 75%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
       text-align: center;
     }
-    header img {
-      width: 100px;
-      height: auto;
-    }
-    h1 {
-      margin: 10px 0 5px 0;
-      font-size: 24px;
-    }
-    p {
-      margin: 5px 0;
-      font-size: 18px;
+
+    .modal-content button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00b4d2;
+      color: white;
+      border: none;
+      max-width: 33%;
+      border-radius: 8px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="1000425963.jpg" alt="Mandiri Cell Logo" />
-    <h1>Mandiri Cell Multi Payment</h1>
-    <p>Support Aplikasi Galeri Pulsa</p>
-    <p>Sejak 2018</p>
-  </header>
+
+<header>
+  <h1>
+    <i class="fas fa-bolt blinking-icon"></i> <p style="font-size: 30px;">Mandiri Cell Multi Payment</p>
+  </h1>
+    <p><marquee>Server & Distributor Pulsa All Operator | Solusi Bisnis Pulsa Terpercaya Sejak 2018</marquee></p>
+  <p style="font-size: 15px;"><strong>Support Aplikasi Galeri Pulsa</strong></p>
+
+</header>
+
+<div class="container">
+  <form id="formPendaftaran">
+    <div class="intro-text">
+      <h2>Formulir Pendaftaran</h2>
+      <p>
+        Isi formulir di bawah ini untuk bergabung menjadi agen resmi Mandiri Cell.
+        Setelah mendaftar, Anda akan mendapatkan akses ke aplikasi Galeri Pulsa
+        dan bisa langsung memulai bisnis digital Anda.
+      </p>
+    </div>
+
+    <div class="form-group">
+      <label for="namaOutlet">Nama Outlet</label>
+      <div class="input-icon">
+        <i class="fas fa-store"></i>
+        <input type="text" id="namaOutlet" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="namaPemilik">Nama Pemilik</label>
+      <div class="input-icon">
+        <i class="fas fa-user"></i>
+        <input type="text" id="namaPemilik" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="alamatLengkap">Alamat Lengkap</label>
+      <div class="input-icon">
+        <i class="fas fa-map-marker-alt"></i>
+        <input type="text" id="alamatLengkap" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="pinTransaksi">PIN Transaksi (min 6 karakter)</label>
+      <div class="input-icon">
+        <i class="fas fa-key"></i>
+        <input type="text" id="pinTransaksi" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="referral">Kode Referral (opsional)</label>
+      <div class="input-icon">
+        <i class="fas fa-gift"></i>
+        <input type="text" id="referral" />
+      </div>
+    </div>
+
+    <button type="submit" id="submitBtn" disabled>Daftar Sekarang</button>
+  </form>
+</div>
+
+<div class="modal" id="popupModal">
+  <div class="modal-content" id="popupText">
+    <span></span>
+    <button onclick="closeModal()">Tutup</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 Mandiri Cell - All Rights Reserved
+</footer>
+
+<script>
+  const fields = ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi"];
+  const submitBtn = document.getElementById("submitBtn");
+
+  const showModal = (msg) => {
+    const modal = document.getElementById("popupModal");
+    const text = document.querySelector("#popupText span");
+    text.textContent = msg;
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    document.getElementById("popupModal").style.display = "none";
+    document.body.style.overflow = "";
+  };
+
+  function validateInput(id, pattern, message) {
+    const input = document.getElementById(id);
+    input.addEventListener("input", () => {
+      const val = input.value;
+      if (val && !pattern.test(val)) {
+        showModal(message);
+        input.value = val.replace(/[^a-zA-Z0-9\s]/g, '');
+      }
+      validateForm();
+    });
+  }
+
+  function validateNoSpace(id, message) {
+    const input = document.getElementById(id);
+    input.addEventListener("input", () => {
+      const val = input.value;
+      if (val && /[^a-zA-Z0-9]/.test(val)) {
+        showModal(message);
+        input.value = val.replace(/[^a-zA-Z0-9]/g, '');
+      }
+      validateForm();
+    });
+  }
+
+  function updateIconColor(id) {
+    const input = document.getElementById(id);
+    const wrapper = input.parentElement;
+    input.addEventListener("input", () => {
+      if (input.value.trim() !== "") {
+        wrapper.classList.add("filled");
+      } else {
+        wrapper.classList.remove("filled");
+      }
+    });
+  }
+
+  function validateForm() {
+    const namaOutlet = document.getElementById("namaOutlet").value.trim();
+    const namaPemilik = document.getElementById("namaPemilik").value.trim();
+    const alamatLengkap = document.getElementById("alamatLengkap").value.trim();
+    const pinTransaksi = document.getElementById("pinTransaksi").value.trim();
+
+    const valid =
+      /^[a-zA-Z0-9\s]+$/.test(namaOutlet) &&
+      /^[a-zA-Z0-9\s]+$/.test(namaPemilik) &&
+      /^[a-zA-Z0-9\s]+$/.test(alamatLengkap) &&
+      /^[a-zA-Z0-9]{6,}$/.test(pinTransaksi);
+
+    submitBtn.disabled = !valid;
+  }
+
+  ["namaOutlet", "namaPemilik", "alamatLengkap"].forEach(id =>
+    validateInput(id, /^[a-zA-Z0-9\s]+$/, "Hanya huruf dan angka yang diperbolehkan.")
+  );
+  validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka, tanpa spasi.");
+  validateNoSpace("referral", "Referral hanya boleh huruf dan angka.");
+
+  ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi", "referral"].forEach(updateIconColor);
+
+  document.getElementById("formPendaftaran").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const namaOutlet = document.getElementById("namaOutlet").value.trim();
+    const namaPemilik = document.getElementById("namaPemilik").value.trim();
+    const alamatLengkap = document.getElementById("alamatLengkap").value.trim();
+    const pinTransaksi = document.getElementById("pinTransaksi").value.trim();
+    const referral = document.getElementById("referral").value.trim();
+    const pesan = `DAFTAR#${namaOutlet}#${namaPemilik}#${alamatLengkap}#${pinTransaksi}#${referral}`;
+    const wa = `https://wa.me/6282188890720?text=${encodeURIComponent(pesan)}`;
+    window.open(wa, "_blank");
+  });
+</script>
+
 </body>
 </html>
