@@ -14,14 +14,20 @@
       padding: 0;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
+    @keyframes blinkcolor {
+      25% {color:#00b4d2;}
+      50% {color:red;}
+      75% {color:#00bbcc;}
+      100% {color:white;}
+      1%, 0% { opacity: 10; }
+      10%, 50%{ opacity: 100; }
+      
     }
 
     .blinking-icon {
-      animation: blink 1s infinite;
-      color: black, red, white, green;
+      animation: blinkcolor 5s infinite alternate;
+     
+     
     }
 
     header {
@@ -47,7 +53,7 @@
       margin: 30px auto;
       background: rgba(255, 255, 255, 0.95);
       padding: 25px 20px;
-      border-radius: 20px;
+      border-radius: 15px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.08);
       backdrop-filter: blur(5px);
     }
@@ -93,12 +99,12 @@
     }
 
     .input-icon.filled i {
-      color: #28a745;
+      color: #00b4d2;
     }
 
     .input-icon.filled input {
-      border-color: #28a745;
-      box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+      border-color: #00b4d2;
+      box-shadow: 0 0 0 2px rgba(90, 167, 70, 0.2);
     }
 
     input {
@@ -106,7 +112,7 @@
       padding: 10px 12px 10px 30px;
       font-size: 15px;
       border: 2px solid #ccc;
-      border-radius: 10px;
+      border-radius: 8px;
       transition: all 0.3s ease;
       background-color: white;
     }
@@ -124,7 +130,7 @@
       background: #FFD200;
       color: black;
       border: 2px solid #b4d2;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s ease;
     }
@@ -159,9 +165,9 @@
     .modal-content {
       background: white;
       padding: 30px;
-      border-radius: 15px;
+      border-radius: 8px;
       font-size: 15px;
-      max-width: 85%;
+      max-width: 75%;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       text-align: center;
     }
@@ -172,6 +178,7 @@
       background: #00b4d2;
       color: white;
       border: none;
+      max-width: 33%;
       border-radius: 8px;
       cursor: pointer;
     }
@@ -181,10 +188,11 @@
 
 <header>
   <h1>
-    <i class="fas fa-bolt blinking-icon"></i> Mandiri Cell Multi Payment
+    <i class="fas fa-bolt blinking-icon"></i> <p style="font-size: 30px;">Mandiri Cell Multi Payment</p>
   </h1>
-  <p style="font-style: italic;">Solusi Bisnis Pulsa Terpercaya Sejak 2018</p>
-  <p>Server Pulsa All Operator | Aplikasi Galeri Pulsa</p>
+    <p><marquee>Server & Distributor Pulsa All Operator | Solusi Bisnis Pulsa Terpercaya Sejak 2018</marquee></p>
+  <p style="font-size: 15px;"><strong>Support Aplikasi Galeri Pulsa</strong></p>
+
 </header>
 
 <div class="container">
@@ -311,19 +319,21 @@
     const namaPemilik = document.getElementById("namaPemilik").value.trim();
     const alamatLengkap = document.getElementById("alamatLengkap").value.trim();
     const pinTransaksi = document.getElementById("pinTransaksi").value.trim();
+
     const valid =
       /^[a-zA-Z0-9\s]+$/.test(namaOutlet) &&
       /^[a-zA-Z0-9\s]+$/.test(namaPemilik) &&
       /^[a-zA-Z0-9\s]+$/.test(alamatLengkap) &&
       /^[a-zA-Z0-9]{6,}$/.test(pinTransaksi);
+
     submitBtn.disabled = !valid;
   }
 
-  validateInput("namaOutlet", /^[a-zA-Z0-9\s]+$/, "Nama Outlet hanya boleh huruf dan angka.");
-  validateInput("namaPemilik", /^[a-zA-Z0-9\s]+$/, "Nama Pemilik hanya boleh huruf dan angka.");
-  validateInput("alamatLengkap", /^[a-zA-Z0-9\s]+$/, "Alamat hanya boleh huruf dan angka.");
+  ["namaOutlet", "namaPemilik", "alamatLengkap"].forEach(id =>
+    validateInput(id, /^[a-zA-Z0-9\s]+$/, "Hanya huruf dan angka yang diperbolehkan.")
+  );
   validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka, tanpa spasi.");
-  validateNoSpace("referral", "Referral hanya boleh huruf dan angka, tanpa spasi.");
+  validateNoSpace("referral", "Referral hanya boleh huruf dan angka.");
 
   ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi", "referral"].forEach(updateIconColor);
 
@@ -334,12 +344,6 @@
     const alamatLengkap = document.getElementById("alamatLengkap").value.trim();
     const pinTransaksi = document.getElementById("pinTransaksi").value.trim();
     const referral = document.getElementById("referral").value.trim();
-
-    if (pinTransaksi.length < 6) {
-      showModal("PIN minimal 6 karakter.");
-      return;
-    }
-
     const pesan = `DAFTAR#${namaOutlet}#${namaPemilik}#${alamatLengkap}#${pinTransaksi}#${referral}`;
     const wa = `https://wa.me/6282188890720?text=${encodeURIComponent(pesan)}`;
     window.open(wa, "_blank");
