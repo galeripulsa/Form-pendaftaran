@@ -210,7 +210,7 @@
       const invalidChars = val.match(/[^a-zA-Z0-9\s]/g);
       if (invalidChars) {
         const unik = [...new Set(invalidChars)].join(' ');
-        showModal(`Karakter tidak valid ditemukan: ${unik}$ \r\n{message}`);
+        showModal(`Karakter tidak valid ditemukan: ${unik}$ <p>{message}</p>`);
         input.value = val.replace(/[^a-zA-Z0-9\s]/g, '');
       }
       validateForm();
