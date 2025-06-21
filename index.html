@@ -21,13 +21,10 @@
       100% {color:white;}
       1%, 0% { opacity: 10; }
       10%, 50%{ opacity: 100; }
-      
     }
 
     .blinking-icon {
       animation: blinkcolor 5s infinite alternate;
-     
-     
     }
 
     header {
@@ -189,11 +186,9 @@
 <header>
   <img src="Logo Mandiri Cell.jpg" alt="Mandiri Cell Logo" style="max-width: 80px; margin-bottom: 5px;" />
   <p style="font-size: 30px;"><strong>Mandiri Cell Multi Payment</strong></p>
-  </h1>
   <p><marquee>Server & Distributor Pulsa All Operator | Solusi Bisnis Pulsa Terpercaya Sejak 2018</marquee></p>
   <p style="font-size: 15px;"><strong>Support Aplikasi Galeri Pulsa</strong></p>
 </header>
-
 
 <div class="container">
   <form id="formPendaftaran">
@@ -334,7 +329,6 @@
   );
   validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka, tanpa spasi.");
   validateNoSpace("referral", "Referral hanya boleh huruf dan angka.");
-
   ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi", "referral"].forEach(updateIconColor);
 
   document.getElementById("formPendaftaran").addEventListener("submit", (e) => {
@@ -344,7 +338,12 @@
     const alamatLengkap = document.getElementById("alamatLengkap").value.trim();
     const pinTransaksi = document.getElementById("pinTransaksi").value.trim();
     const referral = document.getElementById("referral").value.trim();
-    const pesan = `DAFTAR#${namaOutlet}#${namaPemilik}#${alamatLengkap}#${pinTransaksi}#${referral}`;
+
+    let pesan = `DAFTAR#${namaOutlet}#${namaPemilik}#${alamatLengkap}#${pinTransaksi}`;
+    if (referral !== "") {
+      pesan += `#${referral}`;
+    }
+
     const wa = `https://wa.me/6282188890720?text=${encodeURIComponent(pesan)}`;
     window.open(wa, "_blank");
   });
@@ -352,4 +351,3 @@
 
 </body>
 </html>
-
