@@ -16,19 +16,20 @@
       background: #FFD200;
       color: black;
       text-align: center;
-      padding: 8px;
+      padding: 10px 15px;
+      line-height: 1.2;
     }
     header img {
-      max-width: 70px;
+      max-width: 65px;
       margin-bottom: 5px;
     }
     header h2 {
-      margin: 5px 0;
+      margin: 4px 0;
       font-size: 20px;
     }
     header p {
-      margin: 5px 0;
-      font-size: 15px;
+      margin: 3px 0;
+      font-size: 13px;
     }
     .container {
       width: 80%;
@@ -124,21 +125,25 @@
 
 <header>
   <img src="Logo Mandiri Cell.jpg" alt="Mandiri Cell Logo" />
-  <p style="font-size: 30px;"><strong>Mandiri Cell Multi Payment</strong></p>
+  <h2>Mandiri Cell Multi Payment</h2>
   <p><marquee>Server & Distributor Pulsa All Operator | Solusi Bisnis Pulsa Terpercaya Sejak 2018</marquee></p>
   <p><strong>Support Aplikasi Galeri Pulsa</strong></p>
 </header>
 
 <div class="container">
-  <form id="formPendaftaran">
-    <div class="intro-text">
-      <h2>Formulir Pendaftaran</h2>
-      <p>
-        Isi formulir di bawah ini untuk bergabung menjadi agen resmi Mandiri Cell.
-        Setelah mendaftar, Anda akan mendapatkan akses ke aplikasi Galeri Pulsa
-        dan bisa langsung memulai bisnis digital Anda.
-      </p>
-    </div>
+  <form id="formPendaftaran">
+    <div class="intro-text">
+      <h2>Formulir Pendaftaran</h2>
+      <p>Isi formulir di bawah ini untuk bergabung menjadi agen resmi Mandiri Cell.</p>
+    </div>
+
+    <div class="form-group">
+      <label for="namaOutlet">Nama Outlet</label>
+      <div class="input-icon">
+        <i class="fas fa-store"></i>
+        <input type="text" id="namaOutlet" required />
+      </div>
+    </div>
 
     <div class="form-group">
       <label for="namaPemilik">Nama Pemilik</label>
@@ -188,7 +193,6 @@
 </footer>
 
 <script>
-  const fields = ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi"];
   const submitBtn = document.getElementById("submitBtn");
 
   const showModal = (msg) => {
@@ -211,7 +215,7 @@
       const invalidChars = val.match(/[^a-zA-Z0-9\s]/g);
       if (invalidChars) {
         const unik = [...new Set(invalidChars)].join(' ');
-        showModal(`Karakter tidak valid ditemukan: ${unik} \n${message}`);
+        showModal(`Karakter tidak valid ditemukan: ${unik}\n${message}`);
         input.value = val.replace(/[^a-zA-Z0-9\s]/g, '');
       }
       validateForm();
@@ -225,9 +229,7 @@
       const invalidChars = val.match(/[^a-zA-Z0-9]/g);
       if (invalidChars) {
         const unik = [...new Set(invalidChars)].join(' ');
-        showModal(`Karakter tidak valid ditemukan: ${unik}
-
-\n${message}`);
+        showModal(`Karakter tidak valid ditemukan: ${unik}\n${message}`);
         input.value = val.replace(/[^a-zA-Z0-9]/g, '');
       }
       validateForm();
@@ -272,9 +274,7 @@
   );
   validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka tanpa spasi.");
   validateNoSpace("referral", "Referral hanya boleh huruf dan angka.");
-
   enforceMinLengthOnBlur("pinTransaksi", 6, "PIN harus minimal 6 karakter.");
-
   ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi", "referral"].forEach(updateIconColor);
 
   document.getElementById("formPendaftaran").addEventListener("submit", (e) => {
