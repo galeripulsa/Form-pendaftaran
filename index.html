@@ -23,16 +23,16 @@
       margin-bottom: 5px;
     }
     .container {
-      width: 80%;
+      width: 90%;
       max-width: 400px;
       margin: 30px auto;
       background: #fff;
-      padding: 25px;
+      padding: 20px;
       border-radius: 15px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     }
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     label {
       display: block;
@@ -222,6 +222,16 @@
     });
   }
 
+  function enforceMinLengthOnBlur(id, minLength, message) {
+    const input = document.getElementById(id);
+    input.addEventListener("blur", () => {
+      if (input.value.length > 0 && input.value.length < minLength) {
+        showModal(message);
+        input.focus();
+      }
+    });
+  }
+
   function updateIconColor(id) {
     const input = document.getElementById(id);
     const wrapper = input.parentElement;
@@ -246,10 +256,12 @@
   }
 
   ["namaOutlet", "namaPemilik", "alamatLengkap"].forEach(id =>
-    validateInput(id, /^[a-zA-Z0-9\s]+$/, "Hanya boleh spasi, huruf dan angka.")
+    validateInput(id, /^[a-zA-Z0-9\s]+$/, "Hanya huruf dan angka yang diperbolehkan.")
   );
-  validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka.");
+  validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka tanpa spasi.");
   validateNoSpace("referral", "Referral hanya boleh huruf dan angka.");
+
+  enforceMinLengthOnBlur("pinTransaksi", 6, "PIN harus minimal 6 karakter.");
 
   ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi", "referral"].forEach(updateIconColor);
 
