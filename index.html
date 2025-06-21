@@ -246,9 +246,9 @@
   }
 
   ["namaOutlet", "namaPemilik", "alamatLengkap"].forEach(id =>
-    validateInput(id, /^[a-zA-Z0-9\s]+$/, "Hanya huruf dan angka yang diperbolehkan.")
+    validateInput(id, /^[a-zA-Z0-9\s]+$/, "Hanya boleh spasi, huruf dan angka.")
   );
-  validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka tanpa spasi.");
+  validateNoSpace("pinTransaksi", "PIN hanya boleh huruf dan angka.");
   validateNoSpace("referral", "Referral hanya boleh huruf dan angka.");
 
   ["namaOutlet", "namaPemilik", "alamatLengkap", "pinTransaksi", "referral"].forEach(updateIconColor);
