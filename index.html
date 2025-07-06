@@ -67,10 +67,12 @@
     }
     .input-icon input {
       width: 100%;
-      padding: 10px 12px 10px 42px; /* cukup space untuk icon + placeholder */
+      padding: 10px 12px 10px 42px;
       border: 2px solid #ccc;
       border-radius: 8px;
       font-size: 15px;
+      height: 42px;
+      line-height: 1.4;
     }
     .input-icon input::placeholder {
       color: #888;
@@ -168,7 +170,7 @@
       <label for="alamatLengkap">Alamat Lengkap</label>
       <div class="input-icon">
         <i class="fas fa-map-marker-alt"></i>
-        <input type="text" id="alamatLengkap" placeholder="Contoh: Jl. Raya No.123, Bandung" required />
+        <input type="text" id="alamatLengkap" placeholder="Contoh: Jl. Raya No.123" required />
       </div>
     </div>
 
@@ -304,8 +306,6 @@
     const wa = `https://wa.me/6282188890720?text=${encodeURIComponent(pesan)}`;
     window.open(wa, "_blank");
   });
-
-  window.addEventListener("DOMContentLoaded", validateForm);
 </script>
 
 </body>
