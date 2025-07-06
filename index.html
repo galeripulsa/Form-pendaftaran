@@ -61,21 +61,24 @@
     .input-icon i {
       position: absolute;
       top: 50%;
-      left: 12px;
+      left: 14px;
       transform: translateY(-50%);
       color: #aaa;
+      font-size: 16px;
     }
     .input-icon input {
       width: 100%;
-      padding: 10px 12px 10px 42px;
+      padding: 10px 12px 10px 48px;
       border: 2px solid #ccc;
       border-radius: 8px;
       font-size: 15px;
-      height: 42px;
+      height: 44px;
       line-height: 1.4;
+      background: #fff;
+      color: #000;
     }
     .input-icon input::placeholder {
-      color: #888;
+      color: #555;
       opacity: 1;
     }
     .input-icon.filled i {
@@ -154,12 +157,12 @@
       <label for="namaOutlet">Nama Outlet</label>
       <div class="input-icon">
         <i class="fas fa-store"></i>
-        <input type="text" id="namaOutlet" placeholder="Contoh: Mandiri Cell" required />
+        <input type="text" id="namaOutlet" placeholder="Contoh: Toko Pulsa Jaya" required />
       </div>
     </div>
 
     <div class="form-group">
-      <label for="namaPemilik">Nama Pemilik Outlet</label>
+      <label for="namaPemilik">Nama Pemilik</label>
       <div class="input-icon">
         <i class="fas fa-user"></i>
         <input type="text" id="namaPemilik" placeholder="Contoh: Athar Malik" required />
@@ -170,7 +173,7 @@
       <label for="alamatLengkap">Alamat Lengkap</label>
       <div class="input-icon">
         <i class="fas fa-map-marker-alt"></i>
-        <input type="text" id="alamatLengkap" placeholder="Contoh: Jl. Raya No.123" required />
+        <input type="text" id="alamatLengkap" placeholder="Contoh: Jl. Merdeka No. 123, Jakarta" required />
       </div>
     </div>
 
@@ -178,7 +181,7 @@
       <label for="pinTransaksi">PIN Transaksi (min 6 karakter)</label>
       <div class="input-icon">
         <i class="fas fa-key"></i>
-        <input type="password" id="pinTransaksi" placeholder="Contoh: 123abc" required />
+        <input type="text" id="pinTransaksi" placeholder="Misal: 123456" required />
       </div>
     </div>
 
@@ -186,7 +189,7 @@
       <label for="referral">Kode Referral (opsional)</label>
       <div class="input-icon">
         <i class="fas fa-gift"></i>
-        <input type="text" id="referral" placeholder="Contoh: MC2025" />
+        <input type="text" id="referral" placeholder="Isi jika ada kode referral" />
       </div>
     </div>
 
