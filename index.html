@@ -67,10 +67,14 @@
     }
     .input-icon input {
       width: 100%;
-      padding: 10px 12px 10px 42px;
+      padding: 10px 12px 10px 42px; /* cukup space untuk icon + placeholder */
       border: 2px solid #ccc;
       border-radius: 8px;
       font-size: 15px;
+    }
+    .input-icon input::placeholder {
+      color: #888;
+      opacity: 1;
     }
     .input-icon.filled i {
       color: #00b4d2;
@@ -126,11 +130,6 @@
       color: white;
       margin-top: 40px;
     }
-
-     .input-icon input::placeholder {
-     color: #888;
-     opacity: 1;
-    }
   </style>
 </head>
 <body>
@@ -153,23 +152,23 @@
       <label for="namaOutlet">Nama Outlet</label>
       <div class="input-icon">
         <i class="fas fa-store"></i>
-        <input type="text" id="namaOutlet" required />
+        <input type="text" id="namaOutlet" placeholder="Contoh: Mandiri Cell" required />
       </div>
     </div>
 
     <div class="form-group">
-  <label for="namaPemilik">Nama Pemilik</label>
-  <div class="input-icon">
-    <i class="fas fa-user"></i>
-    <input type="text" id="namaPemilik" placeholder="Contoh: Athar Malik" required />
-  </div>
-</div>
+      <label for="namaPemilik">Nama Pemilik</label>
+      <div class="input-icon">
+        <i class="fas fa-user"></i>
+        <input type="text" id="namaPemilik" placeholder="Contoh: Athar Malik" required />
+      </div>
+    </div>
 
     <div class="form-group">
       <label for="alamatLengkap">Alamat Lengkap</label>
       <div class="input-icon">
         <i class="fas fa-map-marker-alt"></i>
-        <input type="text" id="alamatLengkap" required />
+        <input type="text" id="alamatLengkap" placeholder="Contoh: Jl. Raya No.123, Bandung" required />
       </div>
     </div>
 
@@ -177,7 +176,7 @@
       <label for="pinTransaksi">PIN Transaksi (min 6 karakter)</label>
       <div class="input-icon">
         <i class="fas fa-key"></i>
-        <input type="text" id="pinTransaksi" required />
+        <input type="password" id="pinTransaksi" placeholder="Contoh: 123abc" required />
       </div>
     </div>
 
@@ -185,7 +184,7 @@
       <label for="referral">Kode Referral (opsional)</label>
       <div class="input-icon">
         <i class="fas fa-gift"></i>
-        <input type="text" id="referral" />
+        <input type="text" id="referral" placeholder="Contoh: MC2025" />
       </div>
     </div>
 
@@ -305,6 +304,8 @@
     const wa = `https://wa.me/6282188890720?text=${encodeURIComponent(pesan)}`;
     window.open(wa, "_blank");
   });
+
+  window.addEventListener("DOMContentLoaded", validateForm);
 </script>
 
 </body>
